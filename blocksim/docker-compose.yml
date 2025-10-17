@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DEPLOYER_API_KEY=master_key_phase1
+    volumes:
+      - ./backend/app:/app/app
+
+  # Frontend is optional; many users will run a separate dev server for React
+  frontend_placeholder:
+    image: nginx:stable-alpine
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styles from "./StakeWalletModal.module.css";
+import { Toast } from "./Toast";
 
 interface Props {
   onStake: (walletId: string, amount: number) => void;
@@ -11,24 +12,25 @@ export const StakeWalletModal: React.FC<Props> = ({ onStake }) => {
   const [stakeAmount, setStakeAmount] = useState<number>(10);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [toast, setToast] = useState<string | null>(null);
 
   const handleStake = async () => {
     if (!walletId.trim()) {
-      alert("Enter wallet ID");
+      setToast('Enter wallet ID');
       return;
     }
     setLoading(true);
     try {
       const res = await axios.post("/api/chain/stake", { wallet_id: walletId, amount: stakeAmount });
       if (res.data?.status === "staked") {
-        onStake(walletId, stakeAmount);
-        setIsOpen(false);
-        alert("Staked successfully!");
+  onStake(walletId, stakeAmount);
+  setIsOpen(false);
+  setToast('Staked successfully!');
       } else {
-        alert("Unexpected response: " + JSON.stringify(res.data));
+  setToast('Unexpected response: ' + JSON.stringify(res.data));
       }
     } catch (err: any) {
-      alert("Stake failed: " + (err?.message ?? JSON.stringify(err)));
+  setToast('Stake failed: ' + (err?.message ?? JSON.stringify(err)));
     } finally {
       setLoading(false);
     }
@@ -36,6 +38,7 @@ export const StakeWalletModal: React.FC<Props> = ({ onStake }) => {
 
   return (
     <div>
+      <Toast message={toast} onClose={() => setToast(null)} />
       <button onClick={() => setIsOpen(true)}>Stake to Race</button>
       {isOpen && (
         <div className={styles.modalOverlay} onClick={() => setIsOpen(false)}>

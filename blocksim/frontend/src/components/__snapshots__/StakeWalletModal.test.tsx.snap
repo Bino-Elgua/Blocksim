@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StakeWalletModal shows toast on error response 1`] = `
+<div>
+  <div>
+    <div
+      style="position: fixed; top: 16px; right: 16px; background: rgb(15, 23, 42); color: rgb(226, 232, 240); padding: 8px 12px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);"
+    >
+      <div>
+        Unexpected response: {"status":"failed","reason":"insufficient"}
+      </div>
+      <button
+        style="margin-left: 8px;"
+      >
+        Close
+      </button>
+    </div>
+    <button>
+      Stake to Race
+    </button>
+    <div
+      class="modalOverlay"
+    >
+      <div
+        class="modalContent"
+      >
+        <h3>
+          Stake Wallet
+        </h3>
+        <input
+          placeholder="Wallet ID (e.g., 0x123...)"
+          value="0xdef"
+        />
+        <input
+          placeholder="Amount (tokens)"
+          type="number"
+          value="10"
+        />
+        <div
+          class="actions"
+        >
+          <button>
+            Confirm
+          </button>
+          <button>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
